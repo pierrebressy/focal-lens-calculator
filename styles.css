@@ -12,6 +12,35 @@ h1 {
     margin: 0 0 24px;
 }
 
+.tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.tab-button {
+    width: auto;
+    margin-top: 0;
+    padding: 10px 20px;
+    border: 1px solid #bcccdc;
+    background: #d9e2ec;
+    color: #102a43;
+}
+
+.tab-button.active {
+    background: #1f6feb;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(31, 111, 235, 0.2);
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
 .app-shell {
     display: grid;
     grid-template-columns: minmax(300px, 360px) minmax(420px, 1fr);
@@ -167,8 +196,25 @@ button {
     text-decoration: underline;
 }
 
+.sensor-stats p {
+    margin: 0 0 12px;
+}
+
 @media (max-width: 860px) {
+    body {
+        padding: 24px 16px;
+    }
+
     .app-shell {
         grid-template-columns: 1fr;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .sensor-frame {
+        width: 100%;
+        max-width: 280px;
     }
 }

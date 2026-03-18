@@ -10,71 +10,140 @@
 
 <body>
     <h1>Lens Focal Length Calculator</h1>
-    <div class="app-shell">
-        <div class="panel">
-            <h2 class="panel-title">Inputs</h2>
-            <div class="row">
-                <label for="sensorDiag">Sensor diagonal (mm)</label>
-                <input type="number" id="sensorDiag" step="0.01" value="11">
-            </div>
 
-            <div class="row">
-                <label for="objLength">Object / scene height (mm)</label>
-                <input type="number" id="objLength" step="0.01" value="150">
-            </div>
-
-            <div class="row">
-                <label for="objWidth">Object / scene width (mm)</label>
-                <input type="number" id="objWidth" step="0.01" value="150">
-            </div>
-
-            <div class="row">
-                <label for="workingDistance">Working distance (mm)</label>
-                <input type="number" id="workingDistance" step="0.01" value="500">
-            </div>
-
-            <div class="row">
-                <label for="objectResolution">Object resolution (mm/pixel)</label>
-                <input type="number" id="objectResolution" step="0.001" value="0.1">
-            </div>
-
-            <button onclick="calculer()">Calculate focal length</button>
-        </div>
-
-        <div class="result">
-            <h2 class="panel-title">Results</h2>
-            <p>Object diagonal: <span id="objDiag" class="value">-</span> mm</p>
-            <p>Magnification: <span id="magnification" class="value">-</span></p>
-            <div class="sensor-diagram">
-                <p class="sensor-title">Required sensor dimensions</p>
-                <div class="sensor-frame">
-                    <div class="sensor-label sensor-label-width"><span id="sensorPixelsWidth" class="value">-</span> px
-                    </div>
-                    <div class="sensor-label sensor-label-height"><span id="sensorPixelsLength" class="value">-</span>
-                        px</div>
-                    <div class="sensor-rect"></div>
-                </div>
-                <div class="sensor-caption">Width x height in sensor pixels</div>
-            </div>
-            <p>Exact focal length: <span id="focalExact" class="value">-</span> mm</p>
-            <p>Approx. focal length: <span id="focalApprox" class="value">-</span> mm</p>
-            <p class="small">
-                The exact focal length uses the thin lens model.
-                The approximation is valid when the working distance is large compared to the focal length.
-                Pixel sizing uses the requested object-space resolution.
-            </p>
-            <div class="resource-links">
-                <p>Component selection</p>
-                <a href="https://www.baslerweb.com/fr-fr/cameras/area-scan-cameras/#products" target="_blank"
-                    rel="noopener noreferrer">Select a Basler camera</a>
-                <a href="https://va-imaging.com/collections/lens-c-mount-camera" target="_blank"
-                    rel="noopener noreferrer">Select a C-mount lens</a>
-            </div>
-        </div>
+    <div class="tabs" role="tablist" aria-label="Calculator tabs">
+        <button class="tab-button active" id="tab-lens" type="button" role="tab" aria-selected="true"
+            aria-controls="panel-lens" data-tab="lens">
+            Focal lens
+        </button>
+        <button class="tab-button" id="tab-sensor" type="button" role="tab" aria-selected="false"
+            aria-controls="panel-sensor" data-tab="sensor">
+            Sensor
+        </button>
     </div>
 
+    <section class="tab-panel active" id="panel-lens" role="tabpanel" aria-labelledby="tab-lens">
+        <div class="app-shell">
+            <div class="panel">
+                <h2 class="panel-title">Inputs</h2>
+                <div class="row">
+                    <label for="sensorDiag">Sensor diagonal (mm)</label>
+                    <input type="number" id="sensorDiag" step="0.01" value="11">
+                </div>
+
+                <div class="row">
+                    <label for="objLength">Object / scene height (mm)</label>
+                    <input type="number" id="objLength" step="0.01" value="150">
+                </div>
+
+                <div class="row">
+                    <label for="objWidth">Object / scene width (mm)</label>
+                    <input type="number" id="objWidth" step="0.01" value="150">
+                </div>
+
+                <div class="row">
+                    <label for="workingDistance">Working distance (mm)</label>
+                    <input type="number" id="workingDistance" step="0.01" value="500">
+                </div>
+
+                <div class="row">
+                    <label for="objectResolution">Object resolution (mm/pixel)</label>
+                    <input type="number" id="objectResolution" step="0.001" value="0.1">
+                </div>
+
+                <button type="button" id="lensCalcButton">Calculate focal length</button>
+            </div>
+
+            <div class="result">
+                <h2 class="panel-title">Results</h2>
+                <p>Object diagonal: <span id="objDiag" class="value">-</span> mm</p>
+                <p>Magnification: <span id="magnification" class="value">-</span></p>
+                <div class="sensor-diagram">
+                    <p class="sensor-title">Required sensor dimensions</p>
+                    <div class="sensor-frame">
+                        <div class="sensor-label sensor-label-width"><span id="sensorPixelsWidth" class="value">-</span>
+                            px</div>
+                        <div class="sensor-label sensor-label-height"><span id="sensorPixelsLength" class="value">-</span>
+                            px</div>
+                        <div class="sensor-rect"></div>
+                    </div>
+                    <div class="sensor-caption">Width x height in sensor pixels</div>
+                </div>
+                <p>Exact focal length: <span id="focalExact" class="value">-</span> mm</p>
+                <p>Approx. focal length: <span id="focalApprox" class="value">-</span> mm</p>
+                <p class="small">
+                    The exact focal length uses the thin lens model.
+                    The approximation is valid when the working distance is large compared to the focal length.
+                    Pixel sizing uses the requested object-space resolution.
+                </p>
+                <div class="resource-links">
+                    <p>Component selection</p>
+                    <a href="https://www.baslerweb.com/fr-fr/cameras/area-scan-cameras/#products" target="_blank"
+                        rel="noopener noreferrer">Select a Basler camera</a>
+                    <a href="https://va-imaging.com/collections/lens-c-mount-camera" target="_blank"
+                        rel="noopener noreferrer">Select a C-mount lens</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tab-panel" id="panel-sensor" role="tabpanel" aria-labelledby="tab-sensor" hidden>
+        <div class="app-shell">
+            <div class="panel">
+                <h2 class="panel-title">Sensor Inputs</h2>
+                <div class="row">
+                    <label for="sensorMegapixels">Number of pixels (MP)</label>
+                    <input type="number" id="sensorMegapixels" step="0.01" value="12">
+                </div>
+
+                <div class="row">
+                    <label for="sensorWidthMm">Sensor width (mm)</label>
+                    <input type="number" id="sensorWidthMm" step="0.01" value="6.4">
+                </div>
+
+                <div class="row">
+                    <label for="sensorHeightMm">Sensor height (mm)</label>
+                    <input type="number" id="sensorHeightMm" step="0.01" value="4.8">
+                </div>
+
+                <button type="button" id="sensorCalcButton">Calculate pixel size</button>
+            </div>
+
+            <div class="result">
+                <h2 class="panel-title">Sensor Results</h2>
+                <div class="sensor-stats">
+                    <p>Total pixels: <span id="sensorTotalPixels" class="value">-</span> px</p>
+                    <p>Estimated width: <span id="sensorWidthPixels" class="value">-</span> px</p>
+                    <p>Estimated height: <span id="sensorHeightPixels" class="value">-</span> px</p>
+                    <p>Pixel size: <span id="pixelSizeMicrons" class="value">-</span> um</p>
+                    <p>Pixel size: <span id="pixelSizeMm" class="value">-</span> mm</p>
+                </div>
+                <p class="small">
+                    Width and height in pixels are estimated from the total megapixels and the physical sensor aspect ratio.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <script>
-        function calculer() {
+        function setTab(activeTab) {
+            const tabButtons = document.querySelectorAll(".tab-button");
+            const tabPanels = document.querySelectorAll(".tab-panel");
+
+            tabButtons.forEach((button) => {
+                const isActive = button.dataset.tab === activeTab;
+                button.classList.toggle("active", isActive);
+                button.setAttribute("aria-selected", String(isActive));
+            });
+
+            tabPanels.forEach((panel) => {
+                const isActive = panel.id === `panel-${activeTab}`;
+                panel.classList.toggle("active", isActive);
+                panel.hidden = !isActive;
+            });
+        }
+
+        function calculateLens() {
             const sensorDiag = parseFloat(document.getElementById("sensorDiag").value);
             const objLength = parseFloat(document.getElementById("objLength").value);
             const objWidth = parseFloat(document.getElementById("objWidth").value);
@@ -90,22 +159,56 @@
             }
 
             const objDiag = Math.sqrt(objLength * objLength + objWidth * objWidth);
-            const m = sensorDiag / objDiag;
+            const magnification = sensorDiag / objDiag;
             const sensorPixelsLength = objLength / objectResolution;
             const sensorPixelsWidth = objWidth / objectResolution;
-
-            const focalExact = (m * workingDistance) / (1 + m);
+            const focalExact = (magnification * workingDistance) / (1 + magnification);
             const focalApprox = workingDistance * sensorDiag / objDiag;
 
             document.getElementById("objDiag").textContent = objDiag.toFixed(3);
-            document.getElementById("magnification").textContent = m.toFixed(5);
+            document.getElementById("magnification").textContent = magnification.toFixed(5);
             document.getElementById("sensorPixelsWidth").textContent = sensorPixelsWidth.toFixed(0);
             document.getElementById("sensorPixelsLength").textContent = sensorPixelsLength.toFixed(0);
             document.getElementById("focalExact").textContent = focalExact.toFixed(3);
             document.getElementById("focalApprox").textContent = focalApprox.toFixed(3);
         }
 
-        calculer();
+        function calculateSensor() {
+            const megapixels = parseFloat(document.getElementById("sensorMegapixels").value);
+            const sensorWidthMm = parseFloat(document.getElementById("sensorWidthMm").value);
+            const sensorHeightMm = parseFloat(document.getElementById("sensorHeightMm").value);
+
+            if (
+                isNaN(megapixels) || isNaN(sensorWidthMm) || isNaN(sensorHeightMm) ||
+                megapixels <= 0 || sensorWidthMm <= 0 || sensorHeightMm <= 0
+            ) {
+                alert("Please enter strictly positive values.");
+                return;
+            }
+
+            const totalPixels = megapixels * 1000000;
+            const aspectRatio = sensorWidthMm / sensorHeightMm;
+            const sensorWidthPixels = Math.sqrt(totalPixels * aspectRatio);
+            const sensorHeightPixels = totalPixels / sensorWidthPixels;
+            const pixelSizeMm = sensorWidthMm / sensorWidthPixels;
+            const pixelSizeMicrons = pixelSizeMm * 1000;
+
+            document.getElementById("sensorTotalPixels").textContent = totalPixels.toFixed(0);
+            document.getElementById("sensorWidthPixels").textContent = sensorWidthPixels.toFixed(0);
+            document.getElementById("sensorHeightPixels").textContent = sensorHeightPixels.toFixed(0);
+            document.getElementById("pixelSizeMicrons").textContent = pixelSizeMicrons.toFixed(3);
+            document.getElementById("pixelSizeMm").textContent = pixelSizeMm.toFixed(6);
+        }
+
+        document.querySelectorAll(".tab-button").forEach((button) => {
+            button.addEventListener("click", () => setTab(button.dataset.tab));
+        });
+
+        document.getElementById("lensCalcButton").addEventListener("click", calculateLens);
+        document.getElementById("sensorCalcButton").addEventListener("click", calculateSensor);
+
+        calculateLens();
+        calculateSensor();
     </script>
 </body>
 
